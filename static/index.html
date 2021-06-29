@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CWA - Schnelltestpartnersuche</title>
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://www.coronawarn.app/assets/img/icons/favicon-180x180.png">
+    <link rel="icon" type="image/png" sizes="32x32"
+          href="https://www.coronawarn.app/assets/img/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16"
+          href="https://www.coronawarn.app/assets/img/icons/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="96x96"
+          href="https://www.coronawarn.app/assets/img/icons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="192x192"
+          href="https://www.coronawarn.app/assets/img/icons/favicon-192x192.png">
+
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/styles.css"/>
+
+</head>
+
+<body class="bg-second text-font">
+
+<!-- Navbar -->
+<nav>
+    <div class="header">
+        <div class="container p-3">
+            <a href="#">
+                <div class="d-flex align-items-center">
+                    <div class="logo">
+                        <img src="https://www.coronawarn.app/assets/img/icons/favicon-32x32.png">
+                    </div>
+                    <a href="/" title="Startseite">
+                        <div class="title text-light">Corona-Warn-App - Schnellteststellensuche</div>
+                    </a>
+                </div>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<!--  Icon description -->
+<!--
+<div class="container mt-5">
+<div class="row">
+    <div class="col-md-3 col-sm-6">
+        <div class="d-flex mx-2">
+            <span class="text-dark align-self-center"><i class="fas fa-map-marker-alt fa-2x"></i></span>
+            <p class="my-auto ms-1">Terminbuchung nicht notwendig</p>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6">
+        <div class="d-flex mx-2">
+            <span class="text-secondary"><i class="fas fa-map-marker-alt fa-2x"></i></span>
+            <p class="my-auto ms-1">Terminbuchung möglich</p>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6">
+        <div class="d-flex mx-2">
+            <span class="text-main"><i class="fas fa-map-marker-alt fa-2x"></i></span>
+            <p class="my-auto ms-1">Terminbuchung notwendig</p>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6">
+        <div class="d-flex mx-2">
+            <span class="text-danger"><i class="fas fa-crosshairs fa-2x"></i></span>
+            <p class="my-auto ms-1">Meine Position</p>
+        </div>
+    </div>
+</div>
+</div>
+-->
+
+<!-- Search input -->
+<div class="container content">
+    <div class="row mt-3 mt-md-4">
+        <!-- <div class="col-xl-2"></div> -->
+        <div class="col-sm-12 col-xl-9 offset-xl-2">
+            <div class="accordion" id="expandSearchAccordion">
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <div class="input-group" class="accordion-button">
+                            <button
+                                    type="button" class="btn" title="An meinem aktuellen Standort suchen"
+                                    onclick="requestCurrentLocation()">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </button>
+                            <input
+                                    type="text" id="searchInput" class="form-control" placeholder="Postleitzahl"/>
+                            <button
+                                    type="button" class="btn" title="Suchen" onclick="searchCenters()">
+                                <i class="fas fa-search"></i>
+                            </button>
+                            <button
+                                    type="button" class="btn active" title="Erweitert" type="button" role="button"
+                                    data-bs-toggle="collapse" aria-pressed="true" aria-expanded="false"
+                                    data-bs-target="#collapseOne" aria-controls="collapseOne">
+                                <i class="fas fa-ellipsis-h"></i>
+                            </button>
+                        </div>
+                        <!-- <div class="d-flex justify-content-end">
+                        <a class="align-self-center px-2 link hide-me" type="button" data-bs-toggle="collapse" aria-expanded="false"  data-bs-target="#collapseOne" aria-controls="collapseOne" id="headingOne">
+                            erweiterte Suche
+                        </a>
+
+                    </div> -->
+                    </div>
+                    <!-- <h2 class= id="headingOne">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Accordion Item #1
+                  </button>
+                </h2> -->
+                    <div
+                            id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                            data-bs-parent="#expandSearchAccordion">
+                        <div class="accordion-body">
+                            <div class="filter-items justify-content-lg-between d-flex flex-md-row flex-wrap">
+                                <div class="filter-item d-flex align-items-center my-1">
+                                    <div class="searchLabel">
+                                            <span class="text-dark"><i
+                                                    class="fas fa-calendar-alt"></i></span>Terminvereinbarung:
+                                    </div>
+                                    <div class="dropdown searchDropdown terminDropdown">
+                                        <button
+                                                class="btn dropdown-toggle py-1" type="button" id="terminButton"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                            <!-- populated dynamically--></button>
+                                        <ul class="dropdown-menu" aria-labelledby="terminButton">
+                                            <!-- populated dynamically-->
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="filter-item d-flex align-items-center my-1">
+                                    <div class="searchLabel">
+                                            <span class="text-dark"><i
+                                                    class="fas fa-prescription-bottle-alt"></i></span>Test-Art:
+                                    </div>
+                                    <div class="dropdown searchDropdown testArtDropdown">
+                                        <button
+                                                class="btn dropdown-toggle py-1" type="button" id="testArtButton"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                            <!-- populated dynamically-->
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="testArtButton">
+                                            <!-- populated dynamically-->
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="filter-item d-flex align-items-center my-1">
+                                    <div class="searchLabel">
+                                        <label class="form-check-label" for="dccCheckbox"><img
+                                                id="dccLabel" title="Digital Covid Pass"
+                                                class="align-self-center me-1 dcc-logo" style="height: 30px"
+                                                src="/img/dcc.png"/>
+                                            Digital Covid Certificate:
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <div class="form-check">
+                                            <input
+                                                    class="form-check-input" type="checkbox" value=""
+                                                    id="dccCheckbox"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="d-flex justify-content-end">
+                        <div></div>
+                        <div>
+                            <a class="align-self-center px-2 link" type="button" data-bs-toggle="collapse" aria-expanded="false"  data-bs-target="#collapseOne" aria-controls="collapseOne" id="headingOne">
+                            einfache Suche
+                        </a>
+
+                        </div>
+                </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-danger" id="error-message">
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-sm-6">
+            <div id="results-map" class="mb-2 map-shadow"></div>
+        </div>
+        <div class="col-sm-6">
+            <div id="usage-info">
+                <div class=" card card-body">
+                    <h3>Empfangen Sie Ihr Testergebnis in der Corona-Warn-App</h3>
+                    <p class="text-muted">
+                        Nutzen Sie die Lupe, um an Ihrem aktuellen Standort zu suchen oder geben Sie eine Adresse oder
+                        eine Postleitzahl ein, um Teststellen zu finden.</p>
+                    <p class="text-muted"> Es werden nur Testanbieter angezeigt, die die Übermittlung des
+                        Testergebnisses in die
+                        Corona-Warn-App anbieten.</p>
+                    <p class="text-muted">Anbieter welche die Ausstellung eines Digitalen EU-Zertifikats anbieten, sind
+                        mit einer EU Flagge gekennzeichnet.</p>
+                    <p class="text-muted"> Durch das Setzen von Filtern können Sie den gewünschten Anbieter schnell
+                        finden.
+                        Die Angaben zu dem jeweiligen Anbieter (wie z.B.: Testart, Öffnungszeiten usw.) sind freiwillige
+                        Angaben der Testanbieter und können vor Ort abweichen.
+                        Teilweise ermöglichen die aufgeführten Anbieter eine direkte Terminbuchung über den angegebenen
+                        Link.</p>
+                    <p class="text-muted"> Wollen Sie ebenfalls Schnelltestpartner für die Übermittlung der
+                        Testergebnisse in die
+                        Corona-Warn-App werden, dann folgen Sie dem Button:</p>
+                    <div class="offset-lg-4">
+                        <a class="btn btn-dark btn-secondary bg-main" target="_blank"
+                           href="https://github.com/corona-warn-app/cwa-quicktest-onboarding/wiki">Schnelltestpartner
+                            werden</a>
+                    </div>
+                    </p>
+                </div>
+            </div>
+            <div id="resultList">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="footer mt-3">
+    <div class="container p-3">
+        <div class="footer-links d-flex flex-wrap align-items-center justify-content-center">
+            <a class="text-light" href="/impressum.html">Impressum</a>
+            <a class="text-light" href="/privacy.html">Datenschutzerklärung</a>
+            <a class="text-light" href="https://github.com/corona-warn-app/cwa-quicktest-onboarding/wiki">Schnelltestpartner
+                werden</a>
+        </div>
+    </div>
+</div>
+
+<template id="result-item-template">
+    <div id="center-item" class="center-item card mb-2 mb-lg-3" style="min-width: 300px">
+        <!-- Name -->
+        <div class="card-title p-2 pt-3">
+            <div class="d-flex flex-row">
+                <img
+                        id="logo" title="Betreiberlogo" class="align-self-baseline me-2" style="height: 30px"
+                        src="/img/dcc.png"/>
+                <h3 id="name" class="center-name flex-grow-1 px-1">MusterHospital</h3>
+                <img id="dcc"
+                     title="Digital Covid Pass verfügbar" class="align-self-baseline me-1 dcc-logo"
+                     style="height: 30px" src="/img/dcc.png"/>
+            </div>
+        </div>
+        <div class="card-body pt-1">
+            <!-- Adress -->
+            <div class="d-flex flex-row">
+                <span class="text-dark"><i class="fas fa-map-marker-alt"></i></span>
+                <p id="address" class="card-text ms-2">
+                    Invalidenstr. 124, 10115 Berlin
+                </p>
+            </div>
+
+            <!-- Öffnungzeiten List -->
+            <div class="d-flex flex-row mt-1">
+                <span class="text-dark"><i class="fas fa-clock"></i></span>
+                <p class="card-text ms-2">
+                    <a id="openinghours-button" href="#openinghours-panel" data-bs-toggle="collapse"
+                       class="text-main collapse-button link">
+                        Öffnungszeiten</a>
+                    <span id="no-openinghours">Keine Öffnungszeiten angegeben</span>
+                </p>
+            </div>
+            <div id="openinghours-panel" class="collapse">
+                <!-- List with details about time -->
+                <div class="card card-body" style="background-color: transparent">
+                    <ul id="openinghours-list">
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Appointment -->
+            <div class="d-flex flex-row mt-1">
+                <span class="text-dark"><i class="fas fa-calendar-alt"></i></span>
+                <p id="appointment" class="card-text ms-2">
+                    Terminbuchung nicht notwendig
+                </p>
+            </div>
+
+            <!-- PCR -->
+            <div class="d-flex flex-row mt-1">
+                <span class="text-dark"><i class="fas fa-prescription-bottle-alt"></i></span>
+                <p id="kinds" class="card-text ms-2 center-test-kinds">
+                    PCR-Nachtestung nicht möglich
+                </p>
+            </div>
+
+            <div id="note" class="d-flex flex-row mt-1">
+                <span class="text-dark"><i class="fas fa-comment-alt"></i></span>
+                <p class="card-text ms-2 center-test-kinds">
+                    <em id="note-text">Kein Hinweis</em>
+                </p>
+            </div>
+
+            <div class="d-flex flex-row mt-2">
+                <span class="text-dark"><i class="fas fa-road"></i></span>
+                <p class="card-text ms-2">
+                    <a id="route"
+                       href="https://www.google.com/maps/dir/?api=1&travelmode=walking&destination=Rostock"
+                       target="_blank" class="text-main center-route link">
+                        Route</a>
+                </p>
+            </div>
+
+            <div class="d-flex-md-row justify-content-end mt-1">
+                <a id="select" class="btn btn-dark btn-secondary bg-main mx-1 my-2 px-4" href="#"><i
+                        class="fas fa-eye"></i> Anzeigen</a>
+                <a id="website" class="btn btn-dark btn-secondary bg-main mx-1 my-2 px-4" target="_blank"
+                   href="#"><i class="fas fa-external-link-alt"></i> Infos & Terminbuchung</a>
+            </div>
+        </div>
+    </div>
+</template>
+
+
+<script src="/js/bootstrap.bundle.min.js"></script>
+<script src="/bundle.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyARb7p--_OaUwoRfu42MMUNJmUvHxMQcUU&callback=initMap&libraries=&v=weekly"></script>
+</body>
+
+</html>
