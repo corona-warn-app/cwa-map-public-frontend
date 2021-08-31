@@ -1,0 +1,25 @@
+{
+  "name": "javascript-boilerplate",
+  "version": "1.0.0",
+  "description": "Javascript development environment",
+  "author": "Your name here",
+  "private": true,
+  "scripts": {
+    "serve": "webpack serve --mode=development",
+    "dist": "webpack --mode=production"
+  },
+  "devDependencies": {
+    "@types/google.maps": "^3.45.1",
+    "@types/jquery": "^3.5.5",
+    "copy-webpack-plugin": "^9.0.0",
+    "terser-webpack-plugin": "^5.1.3",
+    "ts-loader": "^9.2.3",
+    "typescript": "^4.3.2",
+    "webpack": "^5.38.1",
+    "webpack-cli": "^4.7.2",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "dependencies": {
+    "jquery": "^3.6.0"
+  }
+}
