@@ -25,33 +25,32 @@
 
 <body>
 <!-- START HEADER -->
-<div id="header" class="header">
-    <div class="container p-3">
-        <div class="d-flex align-items-center">
-            <a href="#">
-                <div class="logo">
-                    <img src="https://www.coronawarn.app/assets/img/icons/favicon-32x32.png">
-                </div>
-            </a>
-            <a href="/" title="Startseite">
-                <div class="title text-light">Corona-Warn-App - Schnellteststellensuche</div>
-                <div class="title text-light" style="font-size: small">Die hier gezeigten Schnelltestzentren werden täglich aktualisiert</div>
-            </a>
-        </div>
+<div id="header">
+    <div class="d-flex align-items-center justify-content-center">
+        <a href="#">
+            <div class="logo">
+                <img alt="Corona-Warn-App Logo" src="https://www.coronawarn.app/assets/img/icons/favicon-32x32.png">
+            </div>
+        </a>
+        <a href="/" title="Startseite">
+            <div class="title text-light cwa-heading">Corona-Warn-App - Schnellteststellensuche</div>
+            <div class="title text-light cwa-subheading">Die hier gezeigten Schnelltestzentren werden täglich
+                aktualisiert
+            </div>
+        </a>
     </div>
 </div>
 <!-- END HEADER -->
 
 <!-- START CONTENT -->
-<div class="c19tc-container-fluid">
+<div id="content">
 
     <!-- START ACCORDION -->
-    <div class="accordion" id="expandSearchAccordion">
+    <div class="accordion" id="searchPanel">
         <div class="accordion-item">
             <div class="accordion-header">
                 <div class="input-group">
-                    <button
-                            type="button" class="btn" title="An meinem aktuellen Standort suchen"
+                    <button type="button" class="btn" title="An meinem aktuellen Standort suchen"
                             onclick="requestCurrentLocation()">
                         <i class="fas fa-map-marker-alt"></i>
                     </button>
@@ -69,12 +68,12 @@
             </div>
 
             <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
-                 data-bs-parent="#expandSearchAccordion">
-                <div class="accordion-body">
-                    <div class="filter-items justify-content-start d-flex flex-md-row flex-wrap">
-                        <div class="filter-item d-flex align-items-center my-1">
+                 data-bs-parent="#searchPanel">
+                <div class="accordion-body" style="padding: .5rem">
+                    <div class="filter-items d-flex flex-column flex-lg-row">
+                        <div class="filter-item d-flex justify-content-between my-1">
                             <div class="searchLabel">
-                                <span class="text-dark"><i class="fas fa-calendar-alt fa-fw"></i></span>Terminvereinbarung:
+                                <span class="text-dark"><i class="fas fa-calendar-alt fa-fw"></i></span>Termin:
                             </div>
                             <div class="dropdown searchDropdown terminDropdown">
                                 <button class="btn dropdown-toggle py-1" type="button" id="appointment-dropdown-button"
@@ -88,7 +87,7 @@
 
                         </div>
 
-                        <div class="filter-item d-flex align-items-center my-1">
+                        <div class="filter-item d-flex justify-content-between my-1">
                             <div class="searchLabel">
                                 <span class="text-dark"><i class="fas fa-prescription-bottle-alt fa-fw"></i></span>Test-Art:
                             </div>
@@ -103,12 +102,13 @@
                             </div>
                         </div>
 
-                        <div class="filter-item d-flex align-items-center my-1">
+                        <div class="filter-item d-flex justify-content-between my-1">
 
                             <div class="searchLabel">
                                 <label class="form-check-label" for="dcc-checkbox">
                                     <img id="dccLabel" title="Digital Covid Pass"
-                                         class="align-self-center me-1 dcc-logo" style="height: 30px"
+                                         alt="Digital Covid Certificate"
+                                         class="align-self-center me-1 dcc-logo" style="height: 25px"
                                          src="/img/dcc.png"/>
                                     Digital Covid Certificate:
                                 </label>
@@ -182,8 +182,87 @@
     <!--
     <div id="resultList" class="scrolling-wrapper row flex-row flex-nowrap mt-4 pb-4 pt-2">
     -->
-    <div id="resultList" class="">
+    <div id="resultList" class="p-1 d-flex justify-content-center">
+                <div id="center-item" class="center-item card">
+                    <!-- Name -->
+                    <div class="card-title p-2">
+                        <div class="d-flex flex-row align-items-center">
+                            <img id="operatorLogo" title="Betreiberlogo" class="operatorLogo"
+                                    src="/img/dcc.png"/>
+                            <h3 id="name" class="center-name flex-grow-1 px-1">Muster</h3>
+                            <img id="dccLogo"
+                                 title="Digital Covid Pass verfügbar" class="dccLogo me-1" src="/img/dcc.png"/>
+                            <i class="far fa-window-close close-button align-self-baseline me-1" onclick="clearSelection()"></i>
+                        </div>
+                    </div>
+                    <div class="card-body pt-1">
+                        <!-- Adress -->
+                        <div class="d-flex flex-row">
+                            <span class="text-dark"><i class="fas fa-map-marker-alt"></i></span>
+                            <p id="address" class="card-text ms-2">
+                                Invalidenstr. 124, 10115 Berlin
+                            </p>
+                        </div>
 
+                        <!-- Öffnungzeiten List -->
+                        <div class="d-flex flex-row mt-1">
+                            <span class="text-dark"><i class="fas fa-clock"></i></span>
+                            <p class="card-text ms-2">
+                                <a id="openinghours-button" href="#openinghours-panel" data-bs-toggle="collapse"
+                                   class="text-main collapse-button link">
+                                    Öffnungszeiten</a>
+<!--                                <span id="no-openinghours">Keine Öffnungszeiten angegeben</span>-->
+                            </p>
+                        </div>
+                        <div id="openinghours-panel" class="collapse">
+                            <!-- List with details about time -->
+                            <div class="card card-body" style="background-color: transparent">
+                                <ul id="openinghours-list">
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Appointment -->
+                        <div class="d-flex flex-row mt-1">
+                            <span class="text-dark"><i class="fas fa-calendar-alt"></i></span>
+                            <p id="appointment" class="card-text ms-2">
+                                Terminbuchung nicht notwendig
+                            </p>
+                        </div>
+
+                        <!-- PCR -->
+                        <div class="d-flex flex-row mt-1">
+                            <span class="text-dark"><i class="fas fa-prescription-bottle-alt"></i></span>
+                            <p id="kinds" class="card-text ms-2 center-test-kinds">
+                                PCR-Nachtestung nicht möglich
+                            </p>
+                        </div>
+
+                        <div id="note" class="d-flex flex-row mt-1">
+                            <span class="text-dark"><i class="fas fa-comment-alt"></i></span>
+                            <p class="card-text ms-2 center-test-kinds">
+                                <em id="note-text">Kein Hinweis</em>
+                            </p>
+                        </div>
+
+                        <div class="d-flex flex-row mt-2">
+                            <span class="text-dark"><i class="fas fa-road"></i></span>
+                            <p class="card-text ms-2">
+                                <a id="route"
+                                   href="https://www.google.com/maps/dir/?api=1&travelmode=walking&destination=Rostock"
+                                   target="_blank" class="text-main center-route link">
+                                    Route</a>
+                            </p>
+                        </div>
+
+                        <div class="d-flex justify-content-evenly mt-1">
+                            <a id="select" class="btn btn-sm btn-secondary" role="button" href="#"><i
+                                    class="fas fa-eye"></i> Anzeigen</a>
+                            <a id="website" class="btn btn-sm btn-secondary" target="_blank"
+                               href="#"><i class="fas fa-external-link-alt"></i> Infos & Termin</a>
+                        </div>
+                    </div>
+                </div>
 
         <!-- START TEMPLATE -->
         <!-- END TEMPLATE -->
@@ -205,88 +284,6 @@
 
 <!-- START TEMPLATE NEW-->
 <template id="result-item-template">
-    <div id="center-item" class="center-item card mb-2 mb-lg-3" style="min-width: 300px">
-        <!-- Name -->
-        <div class="card-title p-2 pt-3">
-            <div class="d-flex flex-row">
-                <img
-                        id="logo" title="Betreiberlogo" class="align-self-baseline me-2" style="height: 30px"
-                        src="/img/dcc.png"/>
-                <h3 id="name" class="center-name flex-grow-1 px-1">MusterHospital</h3>
-                <img id="dcc"
-                     title="Digital Covid Pass verfügbar" class="align-self-baseline me-1 dcc-logo"
-                     style="height: 30px" src="/img/dcc.png"/>
-                <i class="far fa-window-close cardclose align-self-baseline me-1" onclick="clearSelection()"></i>
-            </div>
-        </div>
-        <div class="card-body pt-1">
-            <!-- Adress -->
-            <div class="d-flex flex-row">
-                <span class="text-dark"><i class="fas fa-map-marker-alt"></i></span>
-                <p id="address" class="card-text ms-2">
-                    Invalidenstr. 124, 10115 Berlin
-                </p>
-            </div>
-
-            <!-- Öffnungzeiten List -->
-            <div class="d-flex flex-row mt-1">
-                <span class="text-dark"><i class="fas fa-clock"></i></span>
-                <p class="card-text ms-2">
-                    <a id="openinghours-button" href="#openinghours-panel" data-bs-toggle="collapse"
-                       class="text-main collapse-button link">
-                        Öffnungszeiten</a>
-                    <span id="no-openinghours">Keine Öffnungszeiten angegeben</span>
-                </p>
-            </div>
-            <div id="openinghours-panel" class="collapse">
-                <!-- List with details about time -->
-                <div class="card card-body" style="background-color: transparent">
-                    <ul id="openinghours-list">
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Appointment -->
-            <div class="d-flex flex-row mt-1">
-                <span class="text-dark"><i class="fas fa-calendar-alt"></i></span>
-                <p id="appointment" class="card-text ms-2">
-                    Terminbuchung nicht notwendig
-                </p>
-            </div>
-
-            <!-- PCR -->
-            <div class="d-flex flex-row mt-1">
-                <span class="text-dark"><i class="fas fa-prescription-bottle-alt"></i></span>
-                <p id="kinds" class="card-text ms-2 center-test-kinds">
-                    PCR-Nachtestung nicht möglich
-                </p>
-            </div>
-
-            <div id="note" class="d-flex flex-row mt-1">
-                <span class="text-dark"><i class="fas fa-comment-alt"></i></span>
-                <p class="card-text ms-2 center-test-kinds">
-                    <em id="note-text">Kein Hinweis</em>
-                </p>
-            </div>
-
-            <div class="d-flex flex-row mt-2">
-                <span class="text-dark"><i class="fas fa-road"></i></span>
-                <p class="card-text ms-2">
-                    <a id="route"
-                       href="https://www.google.com/maps/dir/?api=1&travelmode=walking&destination=Rostock"
-                       target="_blank" class="text-main center-route link">
-                        Route</a>
-                </p>
-            </div>
-
-            <div class="d-flex-md-row justify-content-end mt-1">
-                <a id="select" class="btn btn-dark btn-secondary bg-main mx-1 my-2 px-4" href="#"><i
-                        class="fas fa-eye"></i> Anzeigen</a>
-                <a id="website" class="btn btn-dark btn-secondary bg-main mx-1 my-2 px-4" target="_blank"
-                   href="#"><i class="fas fa-external-link-alt"></i> Infos & Terminbuchung</a>
-            </div>
-        </div>
-    </div>
 
 </template>
 <!-- END TEMPLATE NEW-->
