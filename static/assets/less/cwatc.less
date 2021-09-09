@@ -80,7 +80,7 @@ a {
   #cwa.gradient;
   position: absolute;
   top: 0;
-  height: 4rem;
+  height: 3.25rem;
   width: 100%;
   padding: 0.5rem;
 
@@ -102,6 +102,7 @@ a {
   & a {
     text-decoration: none;
     padding: 0 0.1rem;
+    display: inline-block;
     &:hover {
       text-decoration: underline;
     }
@@ -173,7 +174,7 @@ a {
 #center-item {
   background: #cwacolors[translucent];
   width: 90%;
-  margin: 0 5%;
+  margin: 5%;
   font-size: smaller;
 }
 
@@ -198,6 +199,9 @@ a {
 }
 
 @media screen and (min-width: 600px){
+  #header {
+    height: 4rem;
+  }
   #searchPanel {
     width: 50%;
     margin: 0 25%;
