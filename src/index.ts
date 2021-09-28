@@ -2,8 +2,8 @@
 
 import Map = google.maps.Map;
 import Marker = google.maps.Marker;
-import * as $ from 'jquery';
 import LatLngLiteral = google.maps.LatLngLiteral;
+import * as $ from 'jquery';
 
 interface GeocodeResults {
     address: string;
@@ -92,6 +92,7 @@ let _markers: { [id: string]: Marker } = {};
 let _centers: { [id: string]: Center } = {};
 
 let _selectedCenter: Center | null = null;
+let _closeReportPanelTimer: number | null = null;
 
 const searchParams: {
     appointment: AppointmentType | null,
@@ -107,6 +108,8 @@ const searchParams: {
 (window as any).requestCurrentLocation = requestCurrentLocation;
 (window as any).searchCenters = searchCenters;
 (window as any).clearSelection = clearSelection;
+(window as any).toggleReportPanel = toggleReportPanel;
+(window as any).submitReport = submitReport;
 
 export function initMap() {
     _map = new google.maps.Map(_resultsMap, {
@@ -387,7 +390,7 @@ function createCenterPanel(center: Center): Element | null {
     route.id = `center_${center.uuid}_route`;
     route.href = `https://www.google.com/maps/dir/?api=1&travelmode=walking&destination=${encodeURI(center.address)}`;
 
-    const logo = fragment.querySelector('#logo') as HTMLImageElement;
+    const logo = fragment.querySelector('#operatorLogo') as HTMLImageElement;
     if (center.logo) {
         logo.src = center.logo;
     } else {
@@ -555,6 +558,74 @@ function onGeolocationSuccess(position: GeolocationPosition) {
  */
 function onGeolocationError() {
     console.log('onGeolocationError');
+}
+
+function toggleReportPanel(close: boolean = false) {
+    const detailsPanel = document.getElementById('detailsPanel');
+    const reportPanel = document.getElementById('reportPanel');
+
+    if (detailsPanel == null || reportPanel == null) {
+        return;
+    }
+
+    if (_closeReportPanelTimer != null) {
+        clearTimeout(_closeReportPanelTimer);
+    }
+
+    if (close) {
+        reportPanel.style.display = 'none';
+        detailsPanel.style.display = '';
+    } else {
+        reportPanel.style.display = '';
+        detailsPanel.style.display = 'none';
+    }
+
+    const submitReportPanel = document.getElementById("submitReportPanel");
+    if (submitReportPanel != null) {
+        submitReportPanel.style.display = '';
+    }
+
+    const reportSubmittedPanel = document.getElementById("reportSubmittedPanel");
+    if (reportSubmittedPanel != null) {
+        reportSubmittedPanel.style.display = 'none';
+    }
+}
+
+function submitReport() {
+    if (!_selectedCenter) {
+        return;
+    }
+
+    const subject = document.getElementById("subject") as HTMLSelectElement;
+    const message = document.getElementById("message") as HTMLTextAreaElement;
+    fetch(`/api/centers/${_selectedCenter.uuid}/report`, {
+        method: 'POST',
+        body: JSON.stringify({
+            subject: subject.value,
+            message: message.value
+        })
+    }).then(response => {
+        if (response.ok) {
+            const submitReportPanel = document.getElementById("submitReportPanel");
+            if (submitReportPanel != null) {
+                submitReportPanel.style.display = 'none';
+            }
+
+            const reportSubmittedPanel = document.getElementById("reportSubmittedPanel");
+            if (reportSubmittedPanel != null) {
+                reportSubmittedPanel.style.display = '';
+            }
+
+            if (_closeReportPanelTimer != null) {
+                clearTimeout(_closeReportPanelTimer);
+            }
+            _closeReportPanelTimer = setTimeout(() => {
+                _closeReportPanelTimer = null;
+                toggleReportPanel(true);
+            }, 3000);
+            return;
+        }
+    }).catch(reason => console.log(reason));
 }
 
 $(function () {
