@@ -29,7 +29,7 @@ This component can be locally build in order to test the functionality of the in
 
 ### Prerequisites
 - [NodeJS](https://nodejs.org)
-- # *(optional)*: [Docker](https://www.docker.com)
+- *(optional)*: [Docker](https://www.docker.com)
 
 ### Build
 After first checkout you have to install required dependencies by running
