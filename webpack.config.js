@@ -43,7 +43,7 @@ module.exports = {
     devServer: {
         contentBase: path.join(__dirname, 'dist'),
         compress: false,
-        port: 9000,
+        port: 9090,
         watchContentBase: true,
         liveReload: true,
         proxy: {

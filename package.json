@@ -1,9 +1,10 @@
 {
-  "name": "javascript-boilerplate",
-  "version": "1.0.0",
-  "description": "Javascript development environment",
-  "author": "Your name here",
+  "name": "cwa-map-public-frontend",
+  "version": "1.2.2",
+  "description": "The CWA Map Public Frontend",
+  "author": "Dirk Reske",
   "private": true,
+  "license": "Apache License, Version 2.0",
   "scripts": {
     "serve": "webpack serve --mode=development",
     "dist": "webpack --mode=production"
