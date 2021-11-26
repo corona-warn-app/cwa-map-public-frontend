@@ -1,6 +1,6 @@
 FROM node:16 as build
 WORKDIR /src/app
-COPY package.json .
+COPY package.json package-lock.json ./
 RUN npm install
 COPY . .
 RUN npm run dist
