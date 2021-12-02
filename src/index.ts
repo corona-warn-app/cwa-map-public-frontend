@@ -318,9 +318,6 @@ function handleFindByBoundsResults(result: SearchResults, centerMap: boolean) {
     let resultCenterMap: { [id: string]: boolean } = {};
     for (const center of result.centers) {
         resultCenterMap[center.uuid] = true;
-        if (_selectedCenter && _selectedCenter.uuid == center.uuid) {
-            showCenterDetails(center);
-        }
 
         if (_centers[center.uuid]) {
             // if center is already in the list, skip processing
@@ -416,7 +413,7 @@ function createCenterPanel(center: Center): Element | null {
     }
 
     if (!center.dcc) {
-        const dcc = fragment.querySelector('#dcc');
+        const dcc = fragment.querySelector('#dccLogo');
         if (dcc != null) {
             dcc.remove()
         }
