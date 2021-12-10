@@ -1,5 +1,5 @@
 /*
- * Corona-Warn-App / cwa-verification
+ * Corona-Warn-App / cwa-map-public-frontend
  *
  * (C) 2020, T-Systems International GmbH
  *
