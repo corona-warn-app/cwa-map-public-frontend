@@ -45,7 +45,7 @@ module.exports = {
             directory: path.join(__dirname, 'dist')
         },
         compress: false,
-        port: 9090,
+        port: 9000,
         liveReload: true,
         proxy: {
             '/api': 'http://localhost:9090'
