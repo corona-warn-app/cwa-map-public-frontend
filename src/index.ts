@@ -339,10 +339,6 @@ function handleFindByBoundsResults(result: SearchResults, centerMap: boolean) {
         _markers[center.uuid] = marker;
     }
 
-    if (_selectedCenter != null && !resultCenterMap[_selectedCenter.uuid]) {
-        showCenterDetails(null);
-    }
-
     for (const center in _centers) {
         if (!resultCenterMap[center]) {
             google.maps.event.clearInstanceListeners(_markers[center]);
