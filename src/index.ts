@@ -324,11 +324,6 @@ function handleFindByBoundsResults(result: SearchResults, centerMap: boolean) {
             continue;
         }
 
-        if (_centers[center.uuid]) {
-            // if center is already in the list, skip processing
-            continue;
-        }
-
         const marker = new google.maps.Marker({
             position: {lat: center.coordinates.latitude, lng: center.coordinates.longitude},
             title: center.name,
