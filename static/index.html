@@ -69,10 +69,10 @@
 
             <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
                  data-bs-parent="#searchPanel">
-                <div class="accordion-body" style="padding: .5rem">
-                    <div class="filter-items d-flex flex-column flex-lg-row">
-                        <div class="filter-item d-flex justify-content-between my-1 align-content-center">
-                            <div class="searchLabel">
+                <div class="accordion-body" style="padding: .2rem">
+                    <div class="filter-items d-flex flex-column flex-xl-row">
+                        <div class="filter-item d-flex justify-content-between my-1 align-items-center">
+                            <div class="searchLabel mx-1">
                                 <span class="text-dark"><i class="fas fa-calendar-alt fa-fw"></i></span>Termin:
                             </div>
                             <div class="dropdown searchDropdown terminDropdown">
@@ -87,8 +87,8 @@
 
                         </div>
 
-                        <div class="filter-item d-flex justify-content-between my-1">
-                            <div class="searchLabel">
+                        <div class="filter-item d-flex justify-content-between my-1 align-items-center">
+                            <div class="searchLabel mx-1">
                                 <span class="text-dark"><i class="fas fa-prescription-bottle-alt fa-fw"></i></span>Test-Art:
                             </div>
                             <div class="dropdown searchDropdown testArtDropdown">
@@ -102,24 +102,19 @@
                             </div>
                         </div>
 
-                        <div class="filter-item d-flex justify-content-between my-1">
-
-                            <div class="searchLabel">
-                                <label class="form-check-label" for="dcc-checkbox">
-                                    <img id="dccLabel" title="Digital Covid Pass"
-                                         alt="Digital Covid Certificate"
-                                         class="align-self-center me-1 dcc-logo" style="height: 25px"
-                                         src="/img/dcc.png"/>
+                        <div class="filter-item d-flex justify-content-between my-1 align-items-center">
+                            <div class="searchLabel d-flex align-items-center">
+                                <img id="dccLabel" title="Digital Covid Pass"
+                                     alt="Digital Covid Certificate"
+                                     class="dcc-logo" style="height: 25px"
+                                     src="/img/dcc.png"/>
+                                <label class="form-check-label mx-1" for="dcc-checkbox">
                                     Digital Covid Certificate:
                                 </label>
                             </div>
-
-                            <div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="dcc-checkbox"/>
                                 </div>
-                            </div>
-
                         </div>
 
                     </div>
