@@ -42,7 +42,7 @@ Afterwards you can run the frontend by running
 npm run serve
 ```
 
-You can then access the frontend via http://localhost:9090
+You can then access the frontend via http://localhost:9000
 
 #### Docker based build
 We recommend that you first check to ensure that [Docker](https://www.docker.com) is installed on your machine.
