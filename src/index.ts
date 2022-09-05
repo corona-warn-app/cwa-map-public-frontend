@@ -64,6 +64,8 @@ interface Center {
     logo: string | null;
     marker: string | null;
     coordinates: Coordinates;
+    age: number;
+    responsive: boolean;
 }
 
 interface SearchResults {
@@ -304,8 +306,14 @@ function handleResponse<T>(response: Response): Promise<T> {
 function handleGetBoundsResult(result: GeocodeResults) {
     _searchInput.value = result.address;
     _map.fitBounds(new google.maps.LatLngBounds(
-        {lat: result.bounds.southWest.latitude, lng: result.bounds.southWest.longitude} as LatLngLiteral,
-        {lat: result.bounds.northEast.latitude, lng: result.bounds.northEast.longitude} as LatLngLiteral
+        {
+            lat: result.bounds.southWest.latitude,
+            lng: result.bounds.southWest.longitude
+        } as LatLngLiteral,
+        {
+            lat: result.bounds.northEast.latitude,
+            lng: result.bounds.northEast.longitude
+        } as LatLngLiteral
     ), 0);
 }
 
@@ -370,6 +378,24 @@ function createCenterPanel(center: Center): Element | null {
     }
     name.id = `center_${center.uuid}_name`;
     name.textContent = center.name;
+
+    const ageWarning = fragment.querySelector("#age-warning-panel") as HTMLDivElement;
+    if (ageWarning == null) {
+        return null;
+    }
+    if (center.age < 4) {
+        ageWarning.remove();
+    } else {
+        (ageWarning.querySelector("#age-number") as HTMLSpanElement).innerText = center.age.toString();
+    }
+
+    const responsiveWarning = fragment.querySelector("#responsive-warning-panel") as HTMLDivElement;
+    if (responsiveWarning == null) {
+        return null;
+    }
+    if (center.responsive) {
+        responsiveWarning.remove();
+    }
 
     const address = fragment.querySelector('#address');
     if (address == null) {
