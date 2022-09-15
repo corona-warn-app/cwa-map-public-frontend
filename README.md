@@ -50,11 +50,11 @@ We recommend that you first check to ensure that [Docker](https://www.docker.com
 On the command line do the following:
 ```bash
 docker build -t <imagename> .
-docker run -p 8080:80/tcp -it <imagename>
+docker run -p 9000:80/tcp -it <imagename>
 ```
 
 if you are in the root of the checked out repository.  
-The docker image will then run on your local machine on port 8080 assuming you configured docker for shared network mode.
+The docker image will then run on your local machine on port 9000 assuming you configured docker for shared network mode.
 
 #### Remarks
 This repository contains files which support our CI/CD pipeline and will be removed without further notice
