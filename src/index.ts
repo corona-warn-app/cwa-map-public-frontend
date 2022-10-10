@@ -118,10 +118,12 @@ const searchParams: {
     appointment: AppointmentType | null,
     kind: TestKind | null,
     dcc: boolean | null,
+    includeOutdated: boolean | null
 } = {
     appointment: null,
     kind: null,
-    dcc: null
+    dcc: null,
+    includeOutdated: false
 };
 
 (window as any).initMap = initMap;
@@ -195,6 +197,14 @@ function initializeFilterOptions() {
     if (dccCheckbox != null) {
         dccCheckbox.onclick = () => {
             searchParams.dcc = dccCheckbox.checked;
+            searchByMapBounds(0);
+        };
+    }
+
+    const outdatedCheckbox = document.getElementById('includeOutdated-checkbox') as HTMLInputElement;
+    if (outdatedCheckbox != null) {
+        outdatedCheckbox.onclick = () => {
+            searchParams.includeOutdated = outdatedCheckbox.checked;
             searchByMapBounds(0);
         };
     }
@@ -277,6 +287,7 @@ function prepareSearchParams(params: { [id: string]: string | number | boolean |
     params['dcc'] = searchParams.dcc;
     params['kind'] = searchParams.kind;
     params['appointment'] = searchParams.appointment;
+    params['includeOutdated'] = searchParams.includeOutdated;
 
     return Object.keys(params)
         .filter(k => params[k] != null)
