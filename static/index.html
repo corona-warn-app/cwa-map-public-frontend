@@ -51,9 +51,13 @@
 
     <!-- START ACCORDION -->
     <div class="accordion" id="searchPanel">
-        <div class="accordion-item">
+        <div class="accordion-item" style="background-color: transparent; border: 0">
             <div class="accordion-header">
-                <div class="input-group">
+                <div class="alert alert-warning text-center fw-bold" role="alert">
+                    Es wurden alle Teststellen entfernt. Das Suchportal steht für eine Suche nicht mehr zur Verfügung.
+                </div>
+
+                <div class="input-group" style="visibility: hidden">
                     <button type="button" class="btn" title="An meinem aktuellen Standort suchen"
                             onclick="requestCurrentLocation()">
                         <i class="fas fa-map-marker-alt"></i>
